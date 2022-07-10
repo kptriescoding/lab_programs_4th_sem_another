@@ -2,30 +2,30 @@ import java.util.*;
 
 public class Prog1 {
     static int count=0;
-    public static void Merge(ArrayList<Integer> arr,int l,int mid,int r){
+    public static void Merge(int[] arr,int l,int mid,int r){
         int i,j,k=l,n1=mid-l+1,n2=r-mid;
-        ArrayList<Integer> b_arr=new ArrayList<>();
-        ArrayList<Integer> c_arr=new ArrayList<>();
+        int[] b_arr=new int[n1];
+        int[] c_arr=new int[n2];
         for(i=0;i<n1;i++)
-            b_arr.add(arr.get(k++));
+            b_arr[i]=arr[k++];
         for(j=0;j<n2;j++)
-            c_arr.add(arr.get(k++));
+            c_arr[j]=arr[k++];
         k=l;j=0;i=0;
         while(i<n1&&j<n2){
-            if(b_arr.get(i) < c_arr.get(j)) arr.set(k++, b_arr.get(i++));
-            else arr.set(k++, c_arr.get(j++));
+            if(b_arr[i] < c_arr[j]) arr[k++]= b_arr[i++];
+            else arr[k++]= c_arr[j++];
             count++;
         }
         while(i<n1){
-            arr.set(k++, b_arr.get(i++));
+            arr[k++]= b_arr[i++];
             count++;
         }
         while(j<n2){
-            arr.set(k++, c_arr.get(j++));
+            arr[k++]= c_arr[j++];
             count++;
         }
     }
-    public static void Merge_Sort(ArrayList<Integer> arr, int l,int r){
+    public static void Merge_Sort(int[] arr, int l,int r){
         if(l>=r)return;
         int mid=(l+r)/2;
         Merge_Sort(arr,l,mid);
@@ -34,59 +34,50 @@ public class Prog1 {
     }
     public static void Time_Complexity(int n){
         Random random= new Random();
-        ArrayList<Integer> sorted_arr=new ArrayList<>();
-        ArrayList<Integer> random_arr=new ArrayList<>();
-        ArrayList<Integer> reverse_sorted_arr;
-        for(int i=0;i<100;i++)sorted_arr.add(i);
-        reverse_sorted_arr=new ArrayList<>(sorted_arr);
-        Collections.reverse(reverse_sorted_arr);
-        ArrayList<Integer> sort_copy,rand_copy,rev_sort_copy;
-        for(int i=0;i<100;i++)random_arr.add(random.nextInt()%1000);
-        ArrayList<Integer> t_sorted=new ArrayList<>(),t_random=new ArrayList<>(),t_descending=new ArrayList<>();
+        System.out.printf("%-16s,%-16s%-16s%-16s\n","Array Size","Ascending","Descending","Random");
+        System.out.printf("%-16s%-8s%-8s%-8s%-8s%-8s%-8s\n","n","Ac","cal","ac","cal","ac","cal");
+        int [] sorted_arr=new int[256];
+        int [] random_arr=new int[256];
+        int [] reverse_sorted_arr=new int[256];
         int i=n;
-        while(i<100){
-            sort_copy=new ArrayList<>(sorted_arr);
-            count=0;
-            Merge_Sort(sort_copy,0,i-1);
-            t_sorted.add(count);
-            count=0;
-            rand_copy=new ArrayList<>(random_arr);
-            Merge_Sort(rand_copy,0,i-1);
-            t_random.add(count);
-            count=0;
-            rev_sort_copy=new ArrayList<>(reverse_sorted_arr);
-            Merge_Sort(rev_sort_copy,0,i-1);
-            t_descending.add(count);
-            i=i*2;
-        }
-        i=n;
-        int j=0;
         int log_n,n_log_n;
-        System.out.println("Array Size   Ascending     Descending       Random");
-        System.out.println("   n          Ac   cal       Ac   cal       Ac  cal");
-        while(i<100){
+        int  n_a,n_d,n_r;
+        while(i<257){
             log_n= (int) (Math.log(i)/Math.log(2));
             n_log_n = i * log_n;
-            System.out.printf("   %-2d         %-4d %-4d      %-4d %-4d      %-4d %-4d\n",i,t_sorted.get(j),n_log_n,t_descending.get(j),n_log_n,t_random.get(j),n_log_n);
-            j++;
+            for(int j=0;j<i;j++){
+                sorted_arr[j]=j;
+                reverse_sorted_arr[j]=j-i;
+                random_arr[j]=random.nextInt()%1000;
+            }
+            count=0;
+            Merge_Sort(sorted_arr,0,i-1);
+            n_a=count;
+            count=0;
+            Merge_Sort(random_arr,0,i-1);
+            n_r=count;
+            count=0;
+            Merge_Sort(reverse_sorted_arr,0,i-1);
+            n_d=count;
+            System.out.printf("%-16s%-8s%-8s%-8s%-8s%-8s%-8s\n",i,n_a,n_log_n,n_d,n_log_n,n_r,n_log_n);
             i*=2;
         }
     }
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int n,i;
-        ArrayList<Integer> arr=new ArrayList<>();
         System.out.println("Enter the size of the array");
         n = scan.nextInt();
+        int[] arr=new int[n];
         System.out.println("Enter the elements of the array");
         for(i=0;i<n;i++) {
-            arr.add(scan.nextInt());
+            arr[i]=scan.nextInt();
         }
         System.out.println("Part1");
         Merge_Sort(arr,0,n-1);
         System.out.println("The Sorted Array is");
         for(i=0;i<n;i++)
-            System.out.print(arr.get(i) +" ");
+            System.out.print(arr[i] +" ");
         System.out.println("\n The time complexity is "+ count);
         System.out.println("Part2");
         Time_Complexity(n);

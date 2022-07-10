@@ -58,7 +58,7 @@ public class Prog3 {
     }
     public static void main(String[] args) {
         Scanner scan=new Scanner(System.in);
-        int edges,ver1,ver2,i;
+        int edges,ver1,ver2,i,st;
         HashMap<Integer,ArrayList<Integer>> adj_list=new HashMap<>();
         HashMap<Integer,Boolean>visited=new HashMap<>();
         ArrayList<Integer> order=new ArrayList<>();
@@ -75,31 +75,43 @@ public class Prog3 {
             visited.put(ver1, false);
             visited.put(ver2, false);
         }
+        System.out.println("Enter the start point");
+        st= scan.nextInt();
         int comp=0;
         HashMap<Integer,Boolean> vistited_copy=new HashMap<>(visited);
         System.out.println("The order of tree traversal with DFS is");
+        dfs(visited, st, adj_list, order);
+        comp++;
+        System.out.println("Component "+comp);
+        for (i=0;i<order.size();i++)
+            System.out.print(order.get(i)+" ");
+        order.clear();
         for(Map.Entry<Integer,Boolean> it:visited.entrySet()) {
             if (it.getValue()) continue;
-            order.clear();
             dfs(visited, it.getKey(), adj_list, order);
             comp++;
-            System.out.println("Component "+comp);
+            System.out.println("\nComponent "+comp);
             for (i=0;i<order.size();i++)
                 System.out.print(order.get(i)+" ");
-            System.out.println();
+            order.clear();
         }
         comp=0;
         visited=new HashMap<>(vistited_copy);
-        System.out.println("The order of tree traversal with BFS is");
+        System.out.println("\n\n\nThe order of tree traversal with BFS is");
+        bfs(visited, st, adj_list, order);
+        comp++;
+        System.out.println("Component "+comp);
+        for (i=0;i<order.size();i++)
+            System.out.print(order.get(i)+" ");
+        order.clear();
         for(Map.Entry<Integer,Boolean> it:visited.entrySet()) {
             if (it.getValue()) continue;
-            order.clear();
             bfs(visited, it.getKey(), adj_list, order);
             comp++;
-            System.out.println("Component " + comp);
+            System.out.println("\nComponent " + comp);
             for (i = 0; i < order.size(); i++)
                 System.out.print(order.get(i) + " ");
-            System.out.println();
+            order.clear();
         }
     }
 }
