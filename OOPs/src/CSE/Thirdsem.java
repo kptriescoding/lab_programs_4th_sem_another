@@ -1,7 +1,7 @@
-package ISE;
+package CSE;
 
 public class Thirdsem {
-    public void WelcomeMsg(){
+     public void WelcomeMsg(){
         System.out.println("Welcome to ISE dept - 3rd sem young budding Engineers");
     }
 }

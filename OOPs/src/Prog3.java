@@ -37,11 +37,11 @@ class Cylinder extends Circle{
     }
 
     public double getVolume() {
-        return height*super.getArea();
+        return height*getArea();
     }
 
     public double getArea() {
-        double radius=super.getRadius();
+        double radius=getRadius();
         double pi=super.pi;
         return 2*pi*radius*height;
     }
