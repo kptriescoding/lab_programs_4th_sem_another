@@ -10,9 +10,9 @@ public class Prog5 {
         if(r<n&&arr[r]>arr[max]){
             max=r;
         }
+        count+=2;
         if(max!=i){
             swap(arr,i,max);
-            count++;
             heapify(arr,max,n);
         }
     }
@@ -31,7 +31,6 @@ public class Prog5 {
     public static void heap_sort(int [] arr,int n){
         build_heap(arr,n);
         for(int i=n-1;i>0;i--){
-            count++;
             swap(arr,i,0);
             heapify(arr,0,i);
         }
