@@ -24,5 +24,6 @@ char garb;
 scanf("%c",&garb);
 msgbuf->mtype=2;
 msgsnd(msgid,msgbuf,sizeof(msgbuf->mtext),IPC_NOWAIT);
-printf("Response sent to Client\n");
+printf("Response sent to Client\nServer Exited");
 }
+
