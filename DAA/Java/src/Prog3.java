@@ -1,115 +1,93 @@
 import java.util.*;
 public class Prog3 {
-    public static void bfs(boolean[] visited,int cur,ArrayList<Integer>[] adj_list,ArrayList<Integer> order) {
-        Queue<Integer> queue=new LinkedList<>();
-        queue.add(cur);
-        int n;
-        ArrayList<Integer> arr;
-        while(!queue.isEmpty()){
-            cur=queue.remove();
-            if(!visited[cur]){
-                order.add(cur);
-                visited[cur]=true;
-            }
-            arr=adj_list[cur];
-            n=arr.size();
-            for(int i=0;i<n;i++){
-                if(visited[arr.get(i)])continue;
-                visited[arr.get(i)]=true;
-                order.add(arr.get(i));
-                queue.add(arr.get(i));
-            }
-        }
-    }
-    public static void dfs_stack(boolean[] visited,int cur,ArrayList<Integer>[] adj_list,ArrayList<Integer> order) {
-        Stack<Integer> stack=new Stack<>();
-        stack.push(cur);
-        int n;
-        ArrayList<Integer> arr;
-        while(!stack.empty()){
-            cur=stack.pop();
-            if(!visited[cur]) {
-                order.add(cur);
-                visited[cur]=true;
-            }
-            arr=adj_list[cur];
-            n=arr.size();
-            for(int i=0;i<n;i++){
-                if(visited[arr.get(i)])continue;
-                visited[arr.get(i)]=true;
-                order.add(arr.get(i));
-                stack.push(cur);
-                stack.push(arr.get(i));
-                break;
+    static int ind;
+    static int order[];
+    static int [][] adj_matrix;
+    public static void bfs(boolean [] visited,int cur){
+        int front=0,rear=0;
+        int [] queue=new int[1000];
+        queue[front++]=cur;
+        int v=visited.length;
+        visited[cur]=true;
+        order[ind++]=cur;
+        while(rear<front){
+            cur=queue[rear++];
+            for(int i=0;i<v;i++){
+                if(adj_matrix[cur][i]==0)continue;
+                if(visited[i])continue;
+                visited[i]=true;
+                order[ind++]=i;
+                queue[front++]=i;
             }
         }
     }
-    public static void dfs(boolean[] visited,int cur,ArrayList<Integer>[] adj_list,ArrayList<Integer> order) {
+    public static void dfs(boolean[] visited,int cur){
         if(visited[cur])return;
-        order.add(cur);
-        visited[cur]= true;
-        ArrayList<Integer> arr=adj_list[cur];
-        for (int x : arr) {
-            if (!visited[x])
-                dfs(visited, x, adj_list, order);
+        visited[cur]=true;
+        order[ind++]=cur;
+        int v=visited.length;
+        for(int i=0;i<v;i++)
+        {
+            if(adj_matrix[cur][i]==0)continue;
+            dfs(visited,i);
         }
     }
     public static void main(String[] args) {
-        Scanner scan=new Scanner(System.in);
-        int edges,ver1,ver2,i,st;
-        ArrayList<Integer>[] adj_list=new ArrayList[100];
-        for(i=0;i<100;i++)adj_list[i]=new ArrayList<>();
-        boolean[] visited=new boolean[100];
-        ArrayList<Integer> order=new ArrayList<>();
-        System.out.println("Enter the number of edges");
-        edges= scan.nextInt();
-        for(i=0;i<100;i++)visited[i]=true;
-        System.out.println("Enter the connected vertices as v1 v2");
-        for(i=0;i<edges;i++) {
-            ver1 = scan.nextInt();
-            ver2 = scan.nextInt();
-            adj_list[ver1].add(ver2);
-            adj_list[ver2].add(ver1);
-            visited[ver1]=false;
-            visited[ver2]=false;
-        }
-        System.out.println("Enter the start point");
-        st= scan.nextInt();
+        Scanner sc=new Scanner(System.in);
+        int v,i,st;
+        System.out.println("Enter the number of vertices");
+        v= sc.nextInt();
+        adj_matrix=new int[v][v];
+        System.out.println("Enter the adjacency matrix\n");
+        for(i=0;i<v;i++)
+            for(int j=0;j<v;j++)
+                adj_matrix[i][j]= sc.nextInt();
+        System.out.println("Enter the starting vertex");
+        st=sc.nextInt();
+        order=new int[100];
+        ind=0;
         int comp=0;
-        boolean[] vistited_copy=visited.clone();
+        boolean [] visited=new boolean[v];
+        Arrays.fill(visited,false);
         System.out.println("The order of tree traversal with DFS is");
-        dfs(visited, st, adj_list, order);
+        dfs(visited, st);
         comp++;
         System.out.println("Component "+comp);
-        for (i=0;i<order.size();i++)
-            System.out.print(order.get(i)+" ");
-        order.clear();
-        for(i=0;i<100;i++) {
+        for (int j=0;j<ind;j++)
+            System.out.print(order[j]+" ");
+        System.out.println();
+        for(i=0;i<v;i++) {
             if (visited[i]) continue;
-            dfs(visited, i, adj_list, order);
+            order=new int[100];
+            ind=0;
+            dfs(visited, i);
             comp++;
-            System.out.println("\nComponent "+comp);
-            for (i=0;i<order.size();i++)
-                System.out.print(order.get(i)+" ");
-            order.clear();
+            System.out.println("Component "+comp);
+            for (int j=0;j<ind;j++)
+                System.out.print(order[j]+" ");
+            System.out.println();
         }
+        order=new int[100];
+        ind=0;
         comp=0;
-        visited=vistited_copy.clone();
-        System.out.println("\n\n\nThe order of tree traversal with BFS is");
-        bfs(visited, st, adj_list, order);
+        Arrays.fill(visited,false);
+        System.out.println("The order of tree traversal with BFS is");
+        bfs(visited, st);
         comp++;
         System.out.println("Component "+comp);
-        for (i=0;i<order.size();i++)
-            System.out.print(order.get(i)+" ");
-        order.clear();
-        for(i=0;i<100;i++) {
+        for (int j=0;j<ind;j++)
+            System.out.print(order[j]+" ");
+        System.out.println();
+        for(i=0;i<v;i++) {
             if (visited[i]) continue;
-            bfs(visited, i, adj_list, order);
+            order=new int[100];
+            ind=0;
+            bfs(visited, i);
             comp++;
-            System.out.println("\nComponent " + comp);
-            for (i = 0; i < order.size(); i++)
-                System.out.print(order.get(i) + " ");
-            order.clear();
+            System.out.println("Component "+comp);
+            for (int j=0;j<ind;j++)
+                System.out.print(order[j]+" ");
+            System.out.println();
         }
     }
 }

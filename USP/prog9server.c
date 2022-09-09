@@ -10,7 +10,7 @@ char mtext[100];
 };
 int main()
 {
-struct message *msgbuf=(struct message*)malloc(sizeof(struct message));;
+struct message *msgbuf=(struct message*)malloc(sizeof(struct message));
 int msgid,len;
 key_t key=1;
 msgid=msgget(key,IPC_CREAT|0666);

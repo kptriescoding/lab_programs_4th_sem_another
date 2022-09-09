@@ -4,8 +4,7 @@ class ArrayListOper {
     public ArrayListOper (){
         this.colors=new ArrayList<>();
     }
-    public void add(String color){
-        colors.add(color);
+    public void add(String color){colors.add(color);
     }
     public String[] toArray(){
         String[] arr=new String[colors.size()];
