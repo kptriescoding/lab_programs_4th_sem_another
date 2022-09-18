@@ -15,5 +15,6 @@ printf("Message from process 2 : %s\n",buf);
 char buf2[1000]="Some Message";
 printf("Process 1 writing in fifo file\n");
 write(fd, buf2,sizeof(buf2));
+unlink("/tmp/fifo");
 exit(0);
 }

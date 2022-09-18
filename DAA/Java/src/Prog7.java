@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class Prog7 {
     public static int knapsack(int W, int[] wt, int[] val, int n){
         int i,w;
@@ -8,12 +7,26 @@ public class Prog7 {
             for(w=0;w<=W;w++ ) {
                 if (i == 0 || w == 0)
                     K[i][w] = 0;
-                else if (wt[i - 1] <= w)
+                else if (w>=wt[i-1])
                     K[i][w] = max(val[i - 1] + K[i - 1][w - wt[i - 1]], K[i - 1][w]);
                 else
                     K[i][w] = K[i - 1][w];
             }
+        System.out.println("The items selected in the knapsack are");
+        printSolution(W,n, K,val,wt);
         return K[n][W];
+    }
+
+    private static void printSolution(int W, int n, int[][] K, int[] val, int[] wt) {
+        int i=n-1,j=W-1;
+        while(i!=0&&j!=0){
+            if(K[i][j]!=K[i-1][j]){
+                System.out.print(val[i] + " ");
+                j=j-wt[i];
+            }
+            i--;
+        }
+        System.out.println();
     }
 
     private static int max(int a, int b) {

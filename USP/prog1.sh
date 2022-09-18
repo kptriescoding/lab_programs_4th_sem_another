@@ -1,15 +1,20 @@
 #!/bin/bash
-var1=$(file $1)
-var2=($var1)
-if [[ "${var2[1]}" == "block" || "${var2[1]}" == "character" || "${var2[1]}" == "directory" || "${var2[1]}" == "symbolic" ]]
+if ! test -e $1
 then
-echo "$1 is a ${var2[1]} ${var2[2]} file"
-elif ["${var2[1]}" == "fifo"]
+echo "The given file is invalid"
+elif test -h $1
 then
-echo "$1 is a ${var2[1]} file"
-elif [ "${var2[1]}" == "cannot" ]
+echo "The given file is a Symbolic File"
+elif test -b $1 
 then
-echo "$1 is not a valid filename"
-else
-echo "$1 is a regular file"
+echo "The given file is a Block Device File"
+elif test -c $1
+then
+echo "The given file is a Character Device File"
+elif test -d $1
+then
+echo "The given file is a Directory File"
+elif test -f $1
+then
+echo "The given file is a Regular File"
 fi

@@ -30,16 +30,14 @@ public class Prog10 {
         int n=arr.length;
         if(ind==n)return;
         if(sum==0) {
-            for(int i=0;sub[i]!=-1;i++)
+            for(int i=0;i<in;i++)
                 System.out.print(sub[i]+" ");
             System.out.println();
         }
-        int[] sub2;
         for(int i=ind+1;i<n;i++){
             if (sum >= arr[i]){
-                sub2=Arrays.copyOf(sub,n);
-                sub2[in]=arr[i];
-                sumOfSubset(arr, sub2, sum-arr[i], i,in+1);
+                sub[in]=arr[i];
+                sumOfSubset(arr, sub, sum-arr[i], i,in+1);
             }
             else break;
         }
