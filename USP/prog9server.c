@@ -20,8 +20,6 @@ while(msgrcv(msgid,msgbuf,sizeof(msgbuf->mtext),1,IPC_NOWAIT)==-1);
 printf("Client \nThe request is %s\n",msgbuf->mtext);
 printf("The response to the request is\n");
 scanf("%[^\n]s",msgbuf->mtext);
-char garb;
-scanf("%c",&garb);
 msgbuf->mtype=2;
 msgsnd(msgid,msgbuf,sizeof(msgbuf->mtext),IPC_NOWAIT);
 printf("Response sent to Client\nServer Exited");

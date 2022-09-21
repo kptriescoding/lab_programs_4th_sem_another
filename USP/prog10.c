@@ -6,8 +6,7 @@
 #include <sys/shm.h> 
 #include <sys/sem.h>
 int main(){
-	extern int errno;
-	key_t key =ftok("testfile",17341);
+	key_t key =1;
 	int shmid=shmget(key,4096,IPC_CREAT|0666);
 	char *shmstr=(char*)shmat(shmid,NULL,0);
 	int semid=semget(key,1,IPC_CREAT);

@@ -5,15 +5,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <syslog.h>
-#include <pwd.h>
 #include <shadow.h>
 #include<crypt.h>
 #include<string.h>
 #include <fcntl.h>
-
  char* p1="/tmp/fifo1",*p2="/tmp/fifo2";
  int fd1,fd2;
-    char username[1000],pass[1000],us_pass[1000],response[1000],file_contents[1000];
+    char username[1000],pass[1000],us_pass[1000],response[1000];
 int handle_login(){
     syslog (LOG_NOTICE, "Daemon Process waiting for response from user");
     read(fd1,us_pass,sizeof(us_pass));
@@ -22,7 +20,6 @@ int handle_login(){
     i++;
     j=0;
     while(us_pass[i]!='$')pass[j++]=us_pass[i++];
-    pass[j]='\0';
     syslog(LOG_NOTICE,"Got username and password from user");
 struct spwd *user=getspnam(username);
 if(user==NULL){
@@ -88,6 +85,8 @@ int main()
         }
     syslog (LOG_NOTICE, "File Monitoring daemon ended terminated.");
     closelog();
+    close(fd1);
+    close(fd2);
     unlink(p1);
     unlink(p2);
     return EXIT_SUCCESS;
