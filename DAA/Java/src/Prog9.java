@@ -31,7 +31,7 @@ public class Prog9 {
         for(int i=0;i<v;i++)
             for(int j=0;j<v;j++)
                 if(w_matrix[i][j]!=0)
-                dist[j]=min(dist[j],dist[i]+w_matrix[i][j]);
+                    dist[j]=min(dist[j],dist[i]+w_matrix[i][j]);
     }
 
     private static int min(int a, int b) {

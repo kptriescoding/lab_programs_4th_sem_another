@@ -18,11 +18,11 @@ public class Prog7 {
     }
 
     private static void printSolution(int W, int n, int[][] K, int[] val, int[] wt) {
-        int i=n-1,j=W-1;
+        int i=n,j=W;
         while(i!=0&&j!=0){
             if(K[i][j]!=K[i-1][j]){
-                System.out.print(val[i] + " ");
-                j=j-wt[i];
+                System.out.print(val[i-1] + " ");
+                j=j-wt[i-1];
             }
             i--;
         }

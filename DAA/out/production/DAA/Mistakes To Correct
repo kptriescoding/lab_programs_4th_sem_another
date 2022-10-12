@@ -1,0 +1,11 @@
+Prog1
+In Merge Sort k=l
+
+Prog7
+In PrintSolution it's i-1 not j-1, and no need of else for i--
+
+Prog10
+while calling subset function again instead don't use ind+1 but rather i
+
+Prog11
+x[k]=i should come before k==n-1

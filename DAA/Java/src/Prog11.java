@@ -6,7 +6,7 @@ public class Prog11{
     public static void main(String[] args) {
         int n;
         Scanner sc=new Scanner(System.in);
-        System.out.println("Emter the value of n");
+        System.out.println("Enter the value of n");
         n=sc.nextInt();
         int []x=new int[n];
         System.out.println("The combinations are");

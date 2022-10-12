@@ -1,7 +1,7 @@
 import java.util.*;
 public class Prog3 {
     static int ind;
-    static int order[];
+    static int[] order;
     static int [][] adj_matrix;
     public static void bfs(boolean [] visited,int cur){
         int front=0,rear=0;
