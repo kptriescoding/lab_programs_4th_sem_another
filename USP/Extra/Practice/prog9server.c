@@ -15,11 +15,11 @@ struct message msg1;
 key_t key=1;
 int msgid=msgget(key,IPC_CREAT|0666);
 printf("Waiting for recieving\n");
-while(msgrcv(msgid,&msg1,sizeof(msg1.mtext),1,IPC_NOWAIT)==-1);
+msgrcv(msgid,&msg1,sizeof(msg1.mtext),1,0);
 printf("%s\n",msg1.mtext);
 printf("Send\n");
 scanf("%[^\n]s",msg1.mtext);
 msg1.mtype=2;
-msgsnd(msgid,&msg1,sizeof(msg1.mtext),IPC_NOWAIT);
+msgsnd(msgid,&msg1,sizeof(msg1.mtext),0);
 msgctl(msgid,IPC_RMID, NULL);
 }

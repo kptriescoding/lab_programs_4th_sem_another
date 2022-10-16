@@ -1,0 +1,19 @@
+Prog4
+return at end
+take care in calling functions and buffers used
+
+Prog5
+Allocate space in coomand string and not use pointer
+
+Prog6
+Put correct params for kill first pid then signal
+
+Prog7
+
+
+Prog9
+Put while loop in msgrcv
+make sure key is same for both
+
+Prog10
+

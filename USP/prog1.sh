@@ -5,6 +5,9 @@ echo "The given file is invalid"
 elif test -h $1
 then
 echo "The given file is a Symbolic File"
+elif test -p $1
+then
+echo "The given file is a fifo file"
 elif test -b $1 
 then
 echo "The given file is a Block Device File"
