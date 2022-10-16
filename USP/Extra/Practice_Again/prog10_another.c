@@ -12,7 +12,6 @@ shmid=shmget(1,4096,IPC_CREAT);
 semid=semget(5,1,IPC_CREAT|0666);
 printf("Waiting for shared memory to be available\n");
 int x=semop(semid,&sem_lock,1);
-printf("%d",x);
 shmstr=(char*)shmat(shmid,NULL,0);
 printf("Enter data to be written in shared memory\n");
 scanf("%s",shmstr);
